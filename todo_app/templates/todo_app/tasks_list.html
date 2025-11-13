@@ -1,0 +1,31 @@
+<h2>my tasks</h2>
+<p>welcom :{{request.user.name}}!
+</p>
+<a href="{% url 'add_task' %}">Add task</a>
+
+
+<form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; color:blue; cursor:pointer;">
+        Logout
+    </button>
+</form>
+
+
+
+<ul>
+    
+    {% for task in tasks  %}
+    <li>
+        <b>{{task.title}} </b> - 
+        {% if task.completed %} yes {% else %}No {% endif %}
+        <a href="{% url 'update_task' task.id %}">Edit</a>
+        <a href="{% url 'delete_task' task.id %}">Delete</a>
+            
+    </li>
+    {% empty %}
+    <p>No tasks yet!</p>
+        
+    {% endfor %}
+        
+</ul>
